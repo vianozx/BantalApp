@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
+
     private lateinit var emailInput:EditText
     private lateinit var passInput:EditText
     private lateinit var firebaseAuth:FirebaseAuth

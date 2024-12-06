@@ -106,36 +106,12 @@
     </LinearLayout>
 
     <!-- Navigasi Bawah -->
-    <LinearLayout
-        android:id="@+id/navigationBar"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="16dp"
-        android:background="#FFFFFF"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/iconProfile"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="Profile" />
-
-        <ImageView
-            android:id="@+id/iconHome"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="Home" />
-
-        <ImageView
-            android:id="@+id/iconSettings"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="Settings" />
-    </LinearLayout>
+        app:menu="@menu/bottom_nav"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
