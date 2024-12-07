@@ -3,7 +3,19 @@
     <style name="Base.Theme.BantalApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/green</item>
+        <item name="android:statusBarColor">@color/green</item>
     </style>
 
     <style name="Theme.BantalApp" parent="Base.Theme.BantalApp" />
+
+    <style name="Theme.BantalApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.BantalApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.BantalApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
