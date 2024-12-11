@@ -1,6 +1,7 @@
 package com.example.bantalapp
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.FrameLayout
@@ -80,7 +81,7 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             R.id.nav_home -> replaceFragment(HomeFragment())
             R.id.nav_profile -> replaceFragment(ProfileFragment())
             R.id.nav_settings -> replaceFragment(SettingsFragment())
-            R.id.nav_logout -> Toast.makeText(this, "Logout!", Toast.LENGTH_SHORT).show()
+            R.id.nav_logout ->startActivity(Intent(this, MainActivity::class.java))
             else -> return false
         }
         drawerLayout.closeDrawer(GravityCompat.START)
