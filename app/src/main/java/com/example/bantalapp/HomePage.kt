@@ -79,9 +79,9 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_home -> replaceFragment(HomeFragment())
-            R.id.nav_profile -> replaceFragment(ProfileFragment())
-            R.id.nav_settings -> replaceFragment(SettingsFragment())
-            R.id.nav_logout ->startActivity(Intent(this, MainActivity::class.java))
+            R.id.nav_profile -> startActivity(Intent(this, Profile::class.java))
+            R.id.nav_settings -> startActivity(Intent(this, Settings::class.java))
+            R.id.nav_logout -> startActivity(Intent(this, MainActivity::class.java))
             else -> return false
         }
         drawerLayout.closeDrawer(GravityCompat.START)
