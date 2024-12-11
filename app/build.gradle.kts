@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.example.bantalapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.bantalapp"
@@ -27,9 +27,7 @@ android {
             )
         }
 
-        buildFeatures {
-            viewBinding = true
-        }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -38,6 +36,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildToolsVersion = "35.0.0"
 }
 
 dependencies {
