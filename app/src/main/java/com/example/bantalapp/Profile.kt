@@ -18,4 +18,5 @@ class Profile : AppCompatActivity() {
             insets
         }
     }
+
 }
