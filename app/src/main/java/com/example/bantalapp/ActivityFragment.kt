@@ -32,18 +32,28 @@ class ActivityFragment : Fragment() {
         rvProduk.layoutManager = LinearLayoutManager(requireContext())
         namaProduk.add("Meditasi")
         namaProduk.add("Olahraga")
-        namaProduk.add("Teh")
+        namaProduk.add("Relaksasi")
+        namaProduk.add("Sosialisasi")
+        namaProduk.add("Hobi")
 
         hargaProduk.add("Ayo lakukan Meditasi sekarang!")
-        hargaProduk.add("Jika dirimu ")
-        hargaProduk.add("5.000")
+        hargaProduk.add("Jika dirimu merasa kurang kegiatan coba olahraga!")
+        hargaProduk.add("Relaksasikan dirimu dengan istirahat yang cukup!")
+        hargaProduk.add("Ikuti sosialisasi!")
+        hargaProduk.add("Lakukan hobi yang membuatmu senang!")
 
-        gambarProduk.add(R.drawable.susu)
-        gambarProduk.add(R.drawable.kopi)
-        gambarProduk.add(R.drawable.teh_tawar)
-        deskripsi.add("Test Ini untuk deskripsi")
-        deskripsi.add("Test Ini untuk deskripsi")
-        deskripsi.add("Test Ini untuk deskripsi")
+        gambarProduk.add(R.drawable.meditasi)
+        gambarProduk.add(R.drawable.olahraga)
+        gambarProduk.add(R.drawable.relaksasi)
+        gambarProduk.add(R.drawable.sosialisasi)
+        gambarProduk.add(R.drawable.hobi)
+
+
+        deskripsi.add("Dengan melakukan meditasi akan membuat hati menjadi lebih tenang")
+        deskripsi.add("Dengan melakukan olahraga rutin akan membuat badan menjadi lebih segar dan bugar")
+        deskripsi.add("Dengan istirahat yang cukup dapat membuat pikiran menjadi tenang")
+        deskripsi.add("Dengan mengikuti sosialisasi yang ada akan menambah banyak wawasan")
+        deskripsi.add("Melakukan hobi yang biasa kamu lakukan dengan senang hati akan membuatmu membalikkan moodmu")
 
         adapterProduk = ProdukAdapter(namaProduk, hargaProduk, gambarProduk, requireContext(),  deskripsi)
         rvProduk.adapter = adapterProduk
