@@ -12,7 +12,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import android.util.Log
-import com.google.firebase.auth.FirebaseUser
 
 class SignUp : AppCompatActivity() {
     private lateinit var emailInputDaftar :EditText
@@ -31,7 +30,7 @@ class SignUp : AppCompatActivity() {
         bDaftar = findViewById<Button>(R.id.bDaftar)
         bKembali = findViewById<Button>(R.id.bKembali)
         firebaseAuth = FirebaseAuth.getInstance()
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.scrollView)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets

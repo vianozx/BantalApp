@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import kotlin.random.Random
 
 class JournalAdapter(
     var namaProduk: ArrayList<String>, // Corrected to ArrayList<String>
@@ -16,7 +17,7 @@ class JournalAdapter(
 ) : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() {
 
     class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvNamaProduk: TextView = itemView.findViewById(R.id.tvNamaProduk)
+        var tvNamaProduk: TextView = itemView.findViewById(R.id.tvJudul)
         var tvHargaProduk: TextView = itemView.findViewById(R.id.tvHargaProduk)
         var imageView: ImageView = itemView.findViewById(R.id.bgJournal)
     }
@@ -34,6 +35,7 @@ class JournalAdapter(
     override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {
         holder.tvNamaProduk.text = namaProduk[position]
         holder.tvHargaProduk.text = hargaProduk[position]
-        holder.imageView.setImageResource(bgJournal[position]) // Works because gambarProduk is ArrayList<Int>
+        val randomIndex = Random.nextInt(bgJournal.size)
+        holder.imageView.setImageResource(bgJournal[randomIndex])
     }
 }

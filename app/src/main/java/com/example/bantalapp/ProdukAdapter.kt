@@ -19,7 +19,7 @@ class ProdukAdapter (
 
     class CountryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        var tvNamaProduk: TextView = itemView.findViewById(R.id.tvNamaProduk)
+        var tvNamaProduk: TextView = itemView.findViewById(R.id.tvJudul)
         var tvHargaProduk: TextView = itemView.findViewById(R.id.tvHargaProduk)
         var imageView: ImageView= itemView.findViewById(R.id.ivProduk)
         var tvDeskripsi: TextView = itemView.findViewById(R.id.tvDeskripsi)

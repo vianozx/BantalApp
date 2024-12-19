@@ -33,6 +33,20 @@ class JurnalFragment : Fragment() {
         hargaProduk.add("10.000")
         hargaProduk.add("9.000")
         hargaProduk.add("5.000")
+        namaProduk.add("Susu")
+        namaProduk.add("Kopi")
+        namaProduk.add("Teh")
+
+        hargaProduk.add("10.000")
+        hargaProduk.add("9.000")
+        hargaProduk.add("5.000")
+        namaProduk.add("Susu")
+        namaProduk.add("Kopi")
+        namaProduk.add("Teh")
+
+        hargaProduk.add("10.000")
+        hargaProduk.add("9.000")
+        hargaProduk.add("5.000")
 
         bgJournal.add(R.drawable.sticky1)
         bgJournal.add(R.drawable.sticky2)
