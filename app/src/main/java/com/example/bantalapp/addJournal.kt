@@ -54,6 +54,7 @@ class addJournal : AppCompatActivity() {
             }
             else{
                 journal.tambah(title,content)
+                finish()
             }
         })
 

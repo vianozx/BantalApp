@@ -1,6 +1,8 @@
 package com.example.bantalapp
 
-data class Journal(val judul:String = "",
-                   val isi:String = "",
-                   val uid:String =""
+import java.util.Date
+
+data class Journal(val NoteContent:String = "",
+                   val NoteTitle:String = "",
+                   val timestamp: Date
 )

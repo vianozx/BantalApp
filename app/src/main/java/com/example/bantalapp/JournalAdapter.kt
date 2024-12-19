@@ -1,41 +1,52 @@
 package com.example.bantalapp
 
-import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.random.Random
 
 class JournalAdapter(
-    var namaProduk: ArrayList<String>, // Corrected to ArrayList<String>
-    var hargaProduk: ArrayList<String>, // Already correct
-    var bgJournal: ArrayList<Int>, // Corrected to ArrayList<Int>
-    var context: Context // Moved this to the last position
+    var noteTitle: ArrayList<String>,
+    var noteContent: ArrayList<String>,
+    var time: ArrayList<String>,
+
 ) : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() {
 
-    class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var tvNamaProduk: TextView = itemView.findViewById(R.id.tvJudul)
-        var tvHargaProduk: TextView = itemView.findViewById(R.id.tvHargaProduk)
-        var imageView: ImageView = itemView.findViewById(R.id.bgJournal)
+    inner class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var tvnoteTitle: TextView = itemView.findViewById(R.id.noteTitle)
+        var noteDesc: TextView = itemView.findViewById(R.id.noteDesc)
+        var noteDesc2: TextView = itemView.findViewById(R.id.noteDesc2)
+
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.journal_card, parent, false)
         return JournalViewHolder(view)
     }
 
+    override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {
+        holder.tvnoteTitle.text = noteTitle.get(position)
+        holder.noteDesc.text = noteContent.get(position)
+        holder.noteDesc2.text = time.get(position)
+    }
+    fun updateData(newTitles: List<String>, newContents: List<String>, newTimes: List<String>) {
+        noteTitle.clear()
+        noteTitle.addAll(newTitles)
+
+        noteContent.clear()
+        noteContent.addAll(newContents)
+
+        time.clear()
+        time.addAll(newTimes)
+
+        notifyDataSetChanged() // Notify adapter of data change
+    }
     override fun getItemCount(): Int {
-        return namaProduk.size // Now this works because namaProduk is an ArrayList<String>
+        return minOf(noteTitle.size, noteContent.size, time.size)
     }
 
-    override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {
-        holder.tvNamaProduk.text = namaProduk[position]
-        holder.tvHargaProduk.text = hargaProduk[position]
-        val randomIndex = Random.nextInt(bgJournal.size)
-        holder.imageView.setImageResource(bgJournal[randomIndex])
-    }
 }

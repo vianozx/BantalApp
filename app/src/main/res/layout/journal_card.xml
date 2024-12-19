@@ -1,55 +1,58 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="180dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@drawable/blueborder"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <ImageButton
-                android:id="@+id/bgJournal"
+            <TextView
+                android:id="@+id/noteTitle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="#FFFFFF"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                android:layout_height="0dp"
+                android:layout_weight="200"
+                android:fontFamily="@font/poppins"
+                android:text="Note Title"
+                android:textColor="@color/blue"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvJudul"
-                android:layout_width="wrap_content"
+                android:id="@+id/noteDesc2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                android:text="nama produk"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/bgJournal"
-                app:layout_constraintTop_toTopOf="@id/bgJournal"
-                tools:layout_constraintStart_toStartOf="@id/bgJournal" />
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins"
+                android:maxHeight="170dp"
+                android:text="Description"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
 
             <TextView
-                android:id="@+id/tvHargaProduk"
-                android:layout_width="wrap_content"
+                android:id="@+id/noteDesc"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Harga Produk"
-                app:layout_constraintStart_toStartOf="@+id/tvJudul"
-                app:layout_constraintTop_toBottomOf="@+id/tvJudul" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/poppins"
+                android:maxHeight="170dp"
+                android:text="Description"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

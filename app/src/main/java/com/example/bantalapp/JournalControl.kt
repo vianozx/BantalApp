@@ -16,7 +16,7 @@ class JournalControl {
             "NoteTitle" to judul,
             "NoteContent" to isi,
             "uid" to currentUser,
-            "time" to currentDateAndTime
+            "timestamp" to currentDateAndTime
             )
         db.collection("Journal").add(journal)
     }

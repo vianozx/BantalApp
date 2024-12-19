@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -14,8 +15,9 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_width="377dp"
+            android:layout_height="116dp"
+            android:layout_gravity="center"
             android:layout_margin="2dp"
             android:layout_marginLeft="2dp"
             android:layout_marginBottom="2dp"
@@ -26,7 +28,7 @@
                 android:id="@+id/ivProduk"
                 android:layout_width="82dp"
                 android:layout_height="97dp"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="2dp"
@@ -39,11 +41,14 @@
 
             <TextView
                 android:id="@+id/tvJudul"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="96dp"
                 android:layout_marginTop="16dp"
+                android:gravity="center"
                 android:text="nama produk"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/ivProduk"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,19 +56,26 @@
                 android:id="@+id/tvDeskripsi"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="Deskripsi"
+                android:textSize="14sp"
+                android:textStyle="italic"
+                android:maxLines="10"
+                android:ellipsize="end"
                 app:layout_constraintBottom_toTopOf="@id/tvHargaProduk"
-                app:layout_constraintStart_toStartOf="@id/tvJudul"
-                app:layout_constraintTop_toBottomOf="@id/tvJudul" />
+                app:layout_constraintStart_toStartOf="@+id/tvHargaProduk"
+                app:layout_constraintTop_toBottomOf="@id/tvJudul"
+                app:layout_constraintVertical_bias="0.3" />
 
             <TextView
                 android:id="@+id/tvHargaProduk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
+                android:layout_marginBottom="10dp"
                 android:text="Harga Produk"
-                app:layout_constraintStart_toEndOf="@+id/ivProduk"
-                tools:layout_editor_absoluteY="51dp" />
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/ivProduk" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,64 +2,84 @@ package com.example.bantalapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bantalapp.R.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class JurnalFragment : Fragment() {
-    lateinit var rvProduk: RecyclerView
-    var namaProduk = ArrayList<String>()
-    var hargaProduk = ArrayList<String>()
-    var bgJournal = ArrayList<Int>()
-    lateinit var btnNote : FloatingActionButton
+    private lateinit var btnAddNote: FloatingActionButton
+    private var auth:FirebaseAuth = FirebaseAuth.getInstance()
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val journalTitles = ArrayList<String>()
+    private val journalContent = ArrayList<String>()
+    private val time = ArrayList<String>()
+    private lateinit var rvJournal: RecyclerView
+    private lateinit var adapter: JournalAdapter
 
-    lateinit var journaladapter: JournalAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_jurnal, container, false)
+        btnAddNote = view.findViewById(R.id.btnNote)
+        rvJournal = view.findViewById(R.id.rvJournal)
 
-        // Initialize RecyclerView
-        rvProduk = view.findViewById(R.id.rvProduk)
-        btnNote = view.findViewById(R.id.btnNote)
-        rvProduk.layoutManager = GridLayoutManager(context,2)
-        namaProduk.add("Susu")
-        namaProduk.add("Kopi")
-        namaProduk.add("Teh")
-
-        hargaProduk.add("10.000")
-        hargaProduk.add("9.000")
-        hargaProduk.add("5.000")
-        namaProduk.add("Susu")
-        namaProduk.add("Kopi")
-        namaProduk.add("Teh")
-
-        hargaProduk.add("10.000")
-        hargaProduk.add("9.000")
-        hargaProduk.add("5.000")
-        namaProduk.add("Susu")
-        namaProduk.add("Kopi")
-        namaProduk.add("Teh")
-
-        hargaProduk.add("10.000")
-        hargaProduk.add("9.000")
-        hargaProduk.add("5.000")
-
-        bgJournal.add(R.drawable.sticky1)
-        bgJournal.add(R.drawable.sticky2)
-        bgJournal.add(R.drawable.sticky3)
-
-        journaladapter = JournalAdapter(namaProduk, hargaProduk, bgJournal, requireContext())
-        rvProduk.adapter = journaladapter
-        btnNote.setOnClickListener {
+        btnAddNote.setOnClickListener {
             val intent = Intent(requireContext(), addJournal::class.java)
             startActivity(intent)
         }
+
+        // Initialize the adapter
+        adapter = JournalAdapter(journalTitles, journalContent, time)
+        rvJournal.layoutManager = GridLayoutManager(requireContext(),2)
+        rvJournal.adapter = adapter
+
+        // Fetch data from Firestore
+        loadImportantJournals()
+
         return view
+    }
+    override fun onResume() {
+        super.onResume()
+        // Load data whenever the fragment becomes visible
+        loadImportantJournals()
+    }
+    private fun loadImportantJournals() {
+        val user = auth.currentUser?.uid
+        firestore.collection("Journal")
+            .whereEqualTo("uid", user)
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    error.printStackTrace()
+                    return@addSnapshotListener
+                }
+
+                val newTitles = ArrayList<String>()
+                val newContents = ArrayList<String>()
+                val newTimes = ArrayList<String>()
+
+                snapshots?.let {
+                    for (document in it.documents) {
+                        document.getString("NoteTitle")?.let { newTitles.add(it) }
+                        document.getString("NoteContent")?.let { newContents.add(it) }
+                        document.getTimestamp("timestamp")?.toDate()?.toString()?.let { newTimes.add(it) }
+                    }
+                }
+                Log.d("DataSize", "Titles: ${newTitles.size}, Contents: ${newContents.size}, Times: ${newTimes.size}")
+                // Update the adapter data
+                adapter.updateData(newTitles, newContents, newTimes)
+            }
     }
 }
