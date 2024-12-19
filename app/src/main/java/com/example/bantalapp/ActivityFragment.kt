@@ -36,11 +36,11 @@ class ActivityFragment : Fragment() {
         namaProduk.add("Sosialisasi")
         namaProduk.add("Hobi")
 
-        hargaProduk.add("Ayo lakukan Meditasi sekarang!")
-        hargaProduk.add("Jika dirimu merasa kurang kegiatan coba olahraga!")
-        hargaProduk.add("Relaksasikan dirimu dengan istirahat yang cukup!")
-        hargaProduk.add("Ikuti sosialisasi!")
-        hargaProduk.add("Lakukan hobi yang membuatmu senang!")
+        hargaProduk.add("klik disini!")
+        hargaProduk.add("klik disini!")
+        hargaProduk.add("klik disini!")
+        hargaProduk.add("klik disini!")
+        hargaProduk.add("klik disini!")
 
         gambarProduk.add(R.drawable.meditasi)
         gambarProduk.add(R.drawable.olahraga)
@@ -49,11 +49,11 @@ class ActivityFragment : Fragment() {
         gambarProduk.add(R.drawable.hobi)
 
 
-        deskripsi.add("Dengan melakukan meditasi akan membuat hati menjadi lebih tenang")
-        deskripsi.add("Dengan melakukan olahraga rutin akan membuat badan menjadi lebih segar dan bugar")
-        deskripsi.add("Dengan istirahat yang cukup dapat membuat pikiran menjadi tenang")
-        deskripsi.add("Dengan mengikuti sosialisasi yang ada akan menambah banyak wawasan")
-        deskripsi.add("Melakukan hobi yang biasa kamu lakukan dengan senang hati akan membuatmu membalikkan moodmu")
+        deskripsi.add("\"Dengan melakukan meditasi akan membuat hati menjadi lebih tenang\"")
+        deskripsi.add("\"Dengan melakukan olahraga rutin akan membuat badan menjadi lebih segar dan bugar\"")
+        deskripsi.add("\"Dengan istirahat yang cukup dapat membuat pikiran menjadi tenang\"")
+        deskripsi.add("\"Dengan mengikuti sosialisasi yang ada akan menambah banyak wawasan\"")
+        deskripsi.add("\"Melakukan hobi yang biasa kamu lakukan dengan senang hati akan membuatmu membalikkan moodmu\"")
 
         adapterProduk = ProdukAdapter(namaProduk, hargaProduk, gambarProduk, requireContext(),  deskripsi)
         rvProduk.adapter = adapterProduk
