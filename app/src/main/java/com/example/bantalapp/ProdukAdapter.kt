@@ -1,4 +1,4 @@
-package com.example.contohrv2
+package com.example.bantalapp
 
 import android.content.Context
 import android.view.LayoutInflater
