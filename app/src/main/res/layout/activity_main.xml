@@ -5,16 +5,15 @@
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:backgroundTint="@color/blue">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:backgroundTint="#000000"
-        android:orientation="vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical">
 
+        <!-- TextView di atas -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,10 +21,7 @@
             android:gravity="center"
             android:text="BANTAL"
             android:textSize="60sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textStyle="bold|italic" />
 
         <TextView
             android:id="@+id/textView"
@@ -35,47 +31,71 @@
             android:text="Bantuan Kesehatan Mental"
             android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/emailInput"
-            android:layout_width="300sp"
-            android:layout_height="58dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="90dp"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
+        <!-- Spacer untuk memisahkan bagian atas dan CardView -->
 
-        <EditText
-            android:id="@+id/passInput"
-            android:layout_width="300sp"
-            android:layout_height="58dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="30dp"
-            android:ems="10"
-            android:hint="Password"
-            android:inputType="textPassword" />
-
-        <Button
-            android:id="@+id/bLogin"
-            android:layout_width="200sp"
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="30dp"
-            android:backgroundTint="@color/blue"
-            android:onClick="masuk"
-            android:text="Login"
-            android:textSize="20sp" />
+            android:layout_marginTop="25dp" />
 
-        <Button
-            android:id="@+id/bDaftar"
-            android:layout_width="200sp"
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="30dp"
+            android:layout_margin="20dp"
             android:backgroundTint="@color/blue"
-            android:onClick="daftar"
-            android:text="Belum Punya Akun? Daftar Sekarang"
-            android:textSize="13sp" />
+            app:cardCornerRadius="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="345dp"
+                android:layout_marginTop="0dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <EditText
+                    android:id="@+id/emailInput"
+                    android:layout_width="300sp"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/passInput"
+                    android:layout_width="300sp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="20dp"
+                    android:ems="10"
+                    android:hint="Password"
+                    android:inputType="textPassword" />
+
+                <Button
+                    android:id="@+id/bKembali"
+                    android:layout_width="200sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="@color/white"
+                    android:onClick="masuk"
+                    android:text="Login"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/bDaftar"
+                    android:layout_width="200sp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:onClick="daftar"
+                    android:text="Sign Up"
+                    android:textColor="@color/blue"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Spacer tambahan kecil untuk jarak bawah -->
 
     </LinearLayout>
 
