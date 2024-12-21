@@ -7,23 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bantalapp.R.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class JurnalFragment : Fragment(), OnJournalClickListener {
+class JurnalFragment : Fragment(), JournalAdapter.OnJournalClickListener {
     private lateinit var btnAddNote: FloatingActionButton
     private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
-    private val journalTitles = ArrayList<String>()
-    private val journalContent = ArrayList<String>()
-    private val time = ArrayList<String>()
+    private val journalItems = ArrayList<Journal>() // Use a list of JournalItem
     private lateinit var rvJournal: RecyclerView
     private lateinit var adapter: JournalAdapter
 
@@ -41,7 +36,7 @@ class JurnalFragment : Fragment(), OnJournalClickListener {
         }
 
         // Initialize the adapter with the click listener
-        adapter = JournalAdapter(journalTitles, journalContent, time, this)
+        adapter = JournalAdapter(journalItems, this) // Pass journalItems list to the adapter
         rvJournal.layoutManager = GridLayoutManager(requireContext(), 2)
         rvJournal.adapter = adapter
 
@@ -67,30 +62,23 @@ class JurnalFragment : Fragment(), OnJournalClickListener {
                     return@addSnapshotListener
                 }
 
-                val newTitles = ArrayList<String>()
-                val newContents = ArrayList<String>()
-                val newTimes = ArrayList<String>()
-
-                // Clear the existing data in the lists
-                newTitles.clear()
-                newContents.clear()
-                newTimes.clear()
+                val newItems = ArrayList<Journal>()
 
                 snapshots?.let {
                     for (document in it.documents) {
-                        document.getString("NoteTitle")?.let { newTitles.add(it) }
-                        document.getString("NoteContent")?.let { newContents.add(it) }
-                        document.getTimestamp("timestamp")?.toDate()?.toString()?.let { newTimes.add(it) }
+                        val title = document.getString("NoteTitle") ?: ""
+                        val content = document.getString("NoteContent") ?: ""
+                        val timestamp = document.getTimestamp("timestamp")?.toDate()?.toString() ?: ""
+                        val documentId = document.id // Get the document ID
+
+                        newItems.add(Journal( content,title, timestamp, documentId))
                     }
 
                     // Sort the journals by timestamp
-                    val sortedIndices = newTimes.indices.sortedBy { newTimes[it] }
-                    val sortedTitles = sortedIndices.map { newTitles[it] }
-                    val sortedContents = sortedIndices.map { newContents[it] }
-                    val sortedTimes = sortedIndices.map { newTimes[it] }
+                    val sortedItems = newItems.sortedBy { it.timestamp }
 
                     // Update the adapter with sorted data
-                    adapter.updateData(sortedTitles, sortedContents, sortedTimes)
+                    adapter.updateData(sortedItems)
                 }
             }
     }
@@ -99,10 +87,13 @@ class JurnalFragment : Fragment(), OnJournalClickListener {
         // Handle the click event
         Log.d("JournalClick", "Item clicked at position $position")
 
-        // Example: Navigate to a detailed activity or fragment
-        val clickedJournal = journalTitles[position]
+        // Get the clicked journal item
+        val clickedJournal = journalItems[position]
+
+        // Pass both title and document ID to the next activity
         val intent = Intent(requireContext(), ViewJournalActivity::class.java)
-        intent.putExtra("journalTitle", clickedJournal)
+        intent.putExtra("journalTitle", clickedJournal.NoteTitle)
+        intent.putExtra("documentId", clickedJournal.documentId) // Pass document ID
         startActivity(intent)
     }
 }
