@@ -50,7 +50,7 @@ class SignUp : AppCompatActivity() {
                     if (task.isComplete){
                         Toast.makeText(
                             applicationContext,
-                            "Berhasil",
+                            "Berhasil membuat akun",
                             Toast.LENGTH_SHORT
                         ).show()
                         Log.d(TAG,"createUserWithEmail:success")
@@ -69,20 +69,5 @@ class SignUp : AppCompatActivity() {
         bKembali.setOnClickListener(View.OnClickListener() {
             startActivity(Intent(this, MainActivity::class.java)) })
     }
-    fun sendEmailVerification(){
-        var user = firebaseAuth.currentUser
-        if (user != null){
-            user.sendEmailVerification().addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    Toast.makeText(
-                        applicationContext,
-                        "Berhasil kirim email",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    firebaseAuth.signOut()
-                    finish()
-                }
-            }
-        }
-    }
+
 }
