@@ -9,8 +9,8 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="109dp"
-        android:layout_height="87dp"
+        android:layout_width="88dp"
+        android:layout_height="63dp"
         android:src="@drawable/user" />
 
     <TextView
