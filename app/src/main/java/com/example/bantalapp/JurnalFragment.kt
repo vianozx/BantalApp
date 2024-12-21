@@ -17,16 +17,15 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class JurnalFragment : Fragment() {
+class JurnalFragment : Fragment(), OnJournalClickListener {
     private lateinit var btnAddNote: FloatingActionButton
-    private var auth:FirebaseAuth = FirebaseAuth.getInstance()
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
     private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
     private val journalTitles = ArrayList<String>()
     private val journalContent = ArrayList<String>()
     private val time = ArrayList<String>()
     private lateinit var rvJournal: RecyclerView
     private lateinit var adapter: JournalAdapter
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,9 +40,9 @@ class JurnalFragment : Fragment() {
             startActivity(intent)
         }
 
-        // Initialize the adapter
-        adapter = JournalAdapter(journalTitles, journalContent, time)
-        rvJournal.layoutManager = GridLayoutManager(requireContext(),2)
+        // Initialize the adapter with the click listener
+        adapter = JournalAdapter(journalTitles, journalContent, time, this)
+        rvJournal.layoutManager = GridLayoutManager(requireContext(), 2)
         rvJournal.adapter = adapter
 
         // Fetch data from Firestore
@@ -51,11 +50,13 @@ class JurnalFragment : Fragment() {
 
         return view
     }
+
     override fun onResume() {
         super.onResume()
         // Load data whenever the fragment becomes visible
         loadImportantJournals()
     }
+
     private fun loadImportantJournals() {
         val user = auth.currentUser?.uid
         firestore.collection("Journal")
@@ -69,17 +70,36 @@ class JurnalFragment : Fragment() {
                 val newTitles = ArrayList<String>()
                 val newContents = ArrayList<String>()
                 val newTimes = ArrayList<String>()
-
+                newTitles.clear()
+                newContents.clear()
+                newTimes.clear()
                 snapshots?.let {
                     for (document in it.documents) {
                         document.getString("NoteTitle")?.let { newTitles.add(it) }
                         document.getString("NoteContent")?.let { newContents.add(it) }
                         document.getTimestamp("timestamp")?.toDate()?.toString()?.let { newTimes.add(it) }
                     }
+
+                    // Sort the journals by timestamp
+                    val sortedIndices = newTimes.indices.sortedBy { newTimes[it] }
+                    val sortedTitles = sortedIndices.map { newTitles[it] }
+                    val sortedContents = sortedIndices.map { newContents[it] }
+                    val sortedTimes = sortedIndices.map { newTimes[it] }
+
+                    // Update the adapter with sorted data
+                    adapter.updateData(sortedTitles, sortedContents, sortedTimes)
                 }
-                Log.d("DataSize", "Titles: ${newTitles.size}, Contents: ${newContents.size}, Times: ${newTimes.size}")
-                // Update the adapter data
-                adapter.updateData(newTitles, newContents, newTimes)
             }
+    }
+
+    override fun onJournalClick(position: Int) {
+        // Handle the click event
+        Log.d("JournalClick", "Item clicked at position $position")
+
+        // Example: Navigate to a detailed activity or fragment
+        val clickedJournal = journalTitles[position]
+        val intent = Intent(requireContext(), ViewJournalActivity::class.java)
+        intent.putExtra("journalTitle", clickedJournal)
+        startActivity(intent)
     }
 }

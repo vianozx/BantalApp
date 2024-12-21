@@ -11,15 +11,24 @@ class JournalAdapter(
     var noteTitle: ArrayList<String>,
     var noteContent: ArrayList<String>,
     var time: ArrayList<String>,
-
+    private val listener: OnJournalClickListener // Add the listener as a parameter
 ) : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() {
 
-    inner class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var tvnoteTitle: TextView = itemView.findViewById(R.id.noteTitle)
         var noteDesc: TextView = itemView.findViewById(R.id.noteDesc)
         var noteDesc2: TextView = itemView.findViewById(R.id.noteDesc2)
 
+        init {
+            itemView.setOnClickListener(this) // Set the click listener on the itemView
+        }
 
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onJournalClick(position) // Trigger the click listener
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JournalViewHolder {
@@ -29,10 +38,11 @@ class JournalAdapter(
     }
 
     override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {
-        holder.tvnoteTitle.text = noteTitle.get(position)
-        holder.noteDesc.text = noteContent.get(position)
-        holder.noteDesc2.text = time.get(position)
+        holder.tvnoteTitle.text = noteTitle[position]
+        holder.noteDesc.text = noteContent[position]
+        holder.noteDesc2.text = time[position]
     }
+
     fun updateData(newTitles: List<String>, newContents: List<String>, newTimes: List<String>) {
         noteTitle.clear()
         noteTitle.addAll(newTitles)
@@ -45,8 +55,13 @@ class JournalAdapter(
 
         notifyDataSetChanged() // Notify adapter of data change
     }
+
     override fun getItemCount(): Int {
         return minOf(noteTitle.size, noteContent.size, time.size)
     }
+}
 
+// Define the interface for handling item click events
+interface OnJournalClickListener {
+    fun onJournalClick(position: Int)
 }
