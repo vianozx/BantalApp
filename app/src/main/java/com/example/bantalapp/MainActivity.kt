@@ -62,4 +62,7 @@ class MainActivity : AppCompatActivity() {
     fun daftar(view:View){
         startActivity(Intent(this, SignUp::class.java))
     }
+    fun pindah(view:View){
+        startActivity(Intent(this, meditasi::class.java))
+    }
 }

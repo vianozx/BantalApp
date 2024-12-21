@@ -1,4 +1,4 @@
-package com.example.contohrv2
+package com.example.bantalapp
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -20,8 +20,6 @@ class ProdukAdapter (
     class CountryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         var tvNamaProduk: TextView = itemView.findViewById(R.id.tvJudul)
-        var tvHargaProduk: TextView = itemView.findViewById(R.id.tvHargaProduk)
-        var imageView: ImageView= itemView.findViewById(R.id.ivProduk)
         var tvDeskripsi: TextView = itemView.findViewById(R.id.tvDeskripsi)
     }
 
@@ -39,8 +37,6 @@ class ProdukAdapter (
     override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
 
         holder.tvNamaProduk.text = namaProduk.get(position)
-        holder.tvHargaProduk.text = hargaProduk.get(position)
-        holder.imageView.setImageResource(gambarProduk.get(position))
         holder.tvDeskripsi.text = deskripsi.get(position)
     }
 
