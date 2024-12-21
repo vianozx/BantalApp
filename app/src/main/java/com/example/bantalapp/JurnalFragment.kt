@@ -70,9 +70,12 @@ class JurnalFragment : Fragment(), OnJournalClickListener {
                 val newTitles = ArrayList<String>()
                 val newContents = ArrayList<String>()
                 val newTimes = ArrayList<String>()
+
+                // Clear the existing data in the lists
                 newTitles.clear()
                 newContents.clear()
                 newTimes.clear()
+
                 snapshots?.let {
                     for (document in it.documents) {
                         document.getString("NoteTitle")?.let { newTitles.add(it) }
