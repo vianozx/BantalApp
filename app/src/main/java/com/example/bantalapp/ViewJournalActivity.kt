@@ -29,12 +29,13 @@ class ViewJournalActivity : AppCompatActivity() {
         }
         val journalTitle = intent.getStringExtra("journalTitle")
         val documentId = intent.getStringExtra("documentId")
-        tvIsi.text = documentId
+
         if (documentId != null) {
             firestore.collection("Journal").document(documentId).get().addOnSuccessListener { document ->
                     judul = document.getString("NoteTitle")?:"error"
                     isi = document.getString("NoteContent")?:"error"
                     tvIsi.text = isi
+                    tvJudul.text=judul
 
 
 

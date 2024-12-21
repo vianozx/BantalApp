@@ -7,38 +7,54 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bantalapp.JournalAdapter.OnJournalClickListener
 import com.example.bantalapp.R
 
 class ProdukAdapter (
-    var namaProduk: ArrayList<String>,
-    var hargaProduk: ArrayList<String>,
-    var gambarProduk: ArrayList<Int>,
-    var context: Context,
-    var deskripsi: ArrayList<String>
-): RecyclerView.Adapter<ProdukAdapter.CountryViewHolder>() {
-
-    class CountryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-
-        var tvNamaProduk: TextView = itemView.findViewById(R.id.tvJudul)
+    private var aktivitasItem: ArrayList<aktivitas>,
+    private val listener: OnAktivitasClickListener
+) : RecyclerView.Adapter<ProdukAdapter.aktivitasViewHolder>() {
+    interface OnAktivitasClickListener {
+        fun onAktivitasClick(position: Int)
+    }
+    inner class aktivitasViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        var tvjudul: TextView = itemView.findViewById(R.id.tvJudul)
         var tvDeskripsi: TextView = itemView.findViewById(R.id.tvDeskripsi)
+
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                listener.onAktivitasClick(position)
+            }
+        }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
-        val view: View = LayoutInflater.from(parent.context)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): aktivitasViewHolder {
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.produk_card, parent, false)
-        return CountryViewHolder(view)
+        return aktivitasViewHolder(view)
+    }
+
+
+
+    override fun onBindViewHolder(holder: aktivitasViewHolder, position: Int) {
+        val aktivitas = aktivitasItem[position]
+        holder.tvjudul.text = aktivitas.nama
+        holder.tvDeskripsi.text = aktivitas.deskripsi
+    }
+
+    fun updateData(newItems: List<aktivitas>) {
+        aktivitasItem.clear()
+        aktivitasItem.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-
-        return namaProduk.size
+        return aktivitasItem.size
     }
-
-    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-
-        holder.tvNamaProduk.text = namaProduk.get(position)
-        holder.tvDeskripsi.text = deskripsi.get(position)
-    }
-
-
 }

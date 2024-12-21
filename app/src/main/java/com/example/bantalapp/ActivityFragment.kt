@@ -1,6 +1,8 @@
 package com.example.bantalapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +10,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bantalapp.ProdukAdapter
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
-class ActivityFragment : Fragment() {
+class ActivityFragment : Fragment(), ProdukAdapter.OnAktivitasClickListener {
 
-    lateinit var rvProduk: RecyclerView
-    var namaProduk = ArrayList<String>()
-    var hargaProduk = ArrayList<String>()
-    var gambarProduk = ArrayList<Int>()
-    var deskripsi = ArrayList<String>()
+    private var auth: FirebaseAuth = FirebaseAuth.getInstance()
+    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    private val aktivitasItem = ArrayList<aktivitas>() // Use a list of JournalItem
+    private lateinit var rvProduk: RecyclerView
 
     lateinit var adapterProduk: ProdukAdapter
 
@@ -30,34 +33,46 @@ class ActivityFragment : Fragment() {
         rvProduk = view.findViewById(R.id.rvJournal)
 
         rvProduk.layoutManager = LinearLayoutManager(requireContext())
-        namaProduk.add("Meditasi")
-        namaProduk.add("Olahraga")
-        namaProduk.add("Relaksasi")
-        namaProduk.add("Sosialisasi")
-        namaProduk.add("Hobi")
 
-        hargaProduk.add("klik disini!")
-        hargaProduk.add("klik disini!")
-        hargaProduk.add("klik disini!")
-        hargaProduk.add("klik disini!")
-        hargaProduk.add("klik disini!")
-
-        gambarProduk.add(R.drawable.meditasi)
-        gambarProduk.add(R.drawable.olahraga)
-        gambarProduk.add(R.drawable.relaksasi)
-        gambarProduk.add(R.drawable.sosialisasi)
-        gambarProduk.add(R.drawable.hobi)
-
-
-        deskripsi.add("\"Dengan melakukan meditasi akan membuat hati menjadi lebih tenang\"")
-        deskripsi.add("\"Dengan melakukan olahraga rutin akan membuat badan menjadi lebih segar dan bugar\"")
-        deskripsi.add("\"Dengan istirahat yang cukup dapat membuat pikiran menjadi tenang\"")
-        deskripsi.add("\"Dengan mengikuti sosialisasi yang ada akan menambah banyak wawasan\"")
-        deskripsi.add("\"Melakukan hobi yang biasa kamu lakukan dengan senang hati akan membuatmu membalikkan moodmu\"")
-
-        adapterProduk = ProdukAdapter(namaProduk, hargaProduk, gambarProduk, requireContext(),  deskripsi)
+        adapterProduk = ProdukAdapter(aktivitasItem,this)
         rvProduk.adapter = adapterProduk
-
+        loadAktivitas()
         return view
+    }
+    private fun loadAktivitas() {
+        firestore.collection("Journal")
+            .addSnapshotListener { snapshots, error ->
+                if (error != null) {
+                    error.printStackTrace()
+                    return@addSnapshotListener
+                }
+
+                val newItems = ArrayList<aktivitas>()
+
+                snapshots?.let {
+                    for (document in it.documents) {
+                        val nama = document.getString("nama") ?: ""
+                        val deskripsi = document.getString("deskripsi") ?: ""
+                        val langkah = document.getString("langkah") ?: ""
+                        val documentId = document.id.toString()
+                        newItems.add(aktivitas( nama,deskripsi,langkah,documentId))
+                    }
+
+
+
+                    // Update the adapter with sorted data
+                    adapterProduk.updateData(newItems)
+                }
+            }
+    }
+
+    override fun onAktivitasClick(position: Int) {
+        val clickedJournal = aktivitasItem[position]
+
+        // Pass both title and document ID to the next activity
+        val intent = Intent(requireContext(), meditasi::class.java)
+        intent.putExtra("nama", clickedJournal.nama)
+        intent.putExtra("documentId", clickedJournal.documentId) // Pass document ID
+        startActivity(intent)
     }
 }
