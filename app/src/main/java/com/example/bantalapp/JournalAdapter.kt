@@ -1,6 +1,5 @@
 package com.example.bantalapp
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,25 +7,25 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class JournalAdapter(
-    var noteTitle: ArrayList<String>,
-    var noteContent: ArrayList<String>,
-    var time: ArrayList<String>,
-    private val listener: OnJournalClickListener // Add the listener as a parameter
+    private var journalItems: ArrayList<Journal>,
+    private val listener: OnJournalClickListener
 ) : RecyclerView.Adapter<JournalAdapter.JournalViewHolder>() {
-
+    interface OnJournalClickListener {
+        fun onJournalClick(position: Int)
+    }
     inner class JournalViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var tvnoteTitle: TextView = itemView.findViewById(R.id.noteTitle)
         var noteDesc: TextView = itemView.findViewById(R.id.noteDesc)
         var noteDesc2: TextView = itemView.findViewById(R.id.noteDesc2)
 
         init {
-            itemView.setOnClickListener(this) // Set the click listener on the itemView
+            itemView.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onJournalClick(position) // Trigger the click listener
+                listener.onJournalClick(position)
             }
         }
     }
@@ -38,30 +37,20 @@ class JournalAdapter(
     }
 
     override fun onBindViewHolder(holder: JournalViewHolder, position: Int) {
-        holder.tvnoteTitle.text = noteTitle[position]
-        holder.noteDesc.text = noteContent[position]
-        holder.noteDesc2.text = time[position]
+        val journal = journalItems[position]
+        holder.tvnoteTitle.text = journal.NoteTitle
+        holder.noteDesc.text = journal.NoteContent
+        holder.noteDesc2.text = journal.timestamp
     }
 
-    fun updateData(newTitles: List<String>, newContents: List<String>, newTimes: List<String>) {
-        noteTitle.clear()
-        noteTitle.addAll(newTitles)
-
-        noteContent.clear()
-        noteContent.addAll(newContents)
-
-        time.clear()
-        time.addAll(newTimes)
-
-        notifyDataSetChanged() // Notify adapter of data change
+    fun updateData(newItems: List<Journal>) {
+        journalItems.clear()
+        journalItems.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
-        return minOf(noteTitle.size, noteContent.size, time.size)
+        return journalItems.size
     }
 }
 
-// Define the interface for handling item click events
-interface OnJournalClickListener {
-    fun onJournalClick(position: Int)
-}
