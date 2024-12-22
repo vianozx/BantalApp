@@ -30,7 +30,7 @@ class ActivityFragment : Fragment(), ProdukAdapter.OnAktivitasClickListener {
         val view = inflater.inflate(R.layout.fragment_activity, container, false)
 
         // Bind RecyclerView with findViewById
-        rvProduk = view.findViewById(R.id.rvJournal)
+        rvProduk = view.findViewById(R.id.rvProduk )
 
         rvProduk.layoutManager = LinearLayoutManager(requireContext())
 
@@ -40,29 +40,29 @@ class ActivityFragment : Fragment(), ProdukAdapter.OnAktivitasClickListener {
         return view
     }
     private fun loadAktivitas() {
-        firestore.collection("Journal")
+        firestore.collection("aktivitas")
             .addSnapshotListener { snapshots, error ->
                 if (error != null) {
-                    error.printStackTrace()
+                    Log.e("Firestore", "Error fetching data", error)
                     return@addSnapshotListener
                 }
 
                 val newItems = ArrayList<aktivitas>()
-
                 snapshots?.let {
                     for (document in it.documents) {
                         val nama = document.getString("nama") ?: ""
                         val deskripsi = document.getString("deskripsi") ?: ""
                         val langkah = document.getString("langkah") ?: ""
-                        val documentId = document.id.toString()
-                        newItems.add(aktivitas( nama,deskripsi,langkah,documentId))
+                        val documentId = document.id
+                        newItems.add(aktivitas( deskripsi, langkah,nama, documentId))
                     }
-
-
-
-                    // Update the adapter with sorted data
-                    adapterProduk.updateData(newItems)
                 }
+
+                // Debug log for data
+                Log.d("Firestore", "Loaded items: $newItems")
+
+                // Update adapter with the data
+                adapterProduk.updateData(newItems)
             }
     }
 

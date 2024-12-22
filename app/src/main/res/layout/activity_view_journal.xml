@@ -8,7 +8,7 @@
     tools:context=".ViewJournalActivity">
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -24,6 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="88dp"
+        android:enabled="false"
+        android:inputType="text"
         android:text="TextView"
         android:textSize="48sp"
         android:textStyle="bold"
@@ -35,7 +37,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:enabled="false"
+        android:focusable="auto"
+        android:inputType="text"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/tvJudulView"
         app:layout_constraintTop_toBottomOf="@+id/tvJudulView" />
+
+    <ImageButton
+        android:id="@+id/btnMore"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/white"
+        android:onClick="showPopup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_more_vert_24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="76dp"
+        android:clickable="true"
+        android:onClick="saveJournal"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/baseline_save_24" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
