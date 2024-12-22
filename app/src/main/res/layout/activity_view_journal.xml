@@ -44,17 +44,28 @@
         app:layout_constraintStart_toStartOf="@+id/tvJudulView"
         app:layout_constraintTop_toBottomOf="@+id/tvJudulView" />
 
-    <ImageButton
-        android:id="@+id/btnMore"
-        android:layout_width="0dp"
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/white"
-        android:onClick="showPopup"
+        android:backgroundTint="#00FFFFFF"
+        android:text="EDIT"
+        android:textColor="@color/blue"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/btnDel"
+        app:layout_constraintTop_toTopOf="@+id/btnDel" />
+
+    <Button
+        android:id="@+id/btnDel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="#00FFFFFF"
+        android:text="Delete"
+        android:textColor="#FF1744"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_more_vert_24" />
+        app:layout_constraintTop_toTopOf="@+id/backButton" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnSave"
