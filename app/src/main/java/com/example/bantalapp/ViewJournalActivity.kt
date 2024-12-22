@@ -1,26 +1,25 @@
 package com.example.bantalapp
 
 import android.annotation.SuppressLint
-import android.content.Intent
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
-import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.isVisible
+import androidx.fragment.app.DialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 
-class ViewJournalActivity : AppCompatActivity() {
+class ViewJournalActivity : AppCompatActivity(), StartGameDialogFragment.OnDeleteListener {
     private lateinit var tvJudul :TextView
     private lateinit var tvIsi :TextView
     private  lateinit var isi:String
@@ -29,7 +28,14 @@ class ViewJournalActivity : AppCompatActivity() {
     private lateinit var btnSave: FloatingActionButton
     private lateinit var journal: JournalControl
     private lateinit var backBtn: ImageButton
+    private lateinit var btnDel: Button
+    override fun onJournalDeleted() {
+        // Notify user of successful deletion
+        Toast.makeText(this, "Journal deleted successfully", Toast.LENGTH_SHORT).show()
 
+        // Finish the activity and navigate back
+        onBackPressed()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,6 +44,7 @@ class ViewJournalActivity : AppCompatActivity() {
         tvIsi = findViewById(R.id.tvContentView)
         btnSave = findViewById(R.id.btnSave)
         backBtn = findViewById(R.id.backButton)
+        btnDel = findViewById(R.id.btnDel)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -88,31 +95,40 @@ class ViewJournalActivity : AppCompatActivity() {
         backBtn.setOnClickListener(View.OnClickListener {
             onBackPressed()
         })
-    }
-    @SuppressLint("NewApi")
-    fun showPopup(v : View){
-        val popup = PopupMenu(this, v)
-        val inflater: MenuInflater = popup.menuInflater
-        inflater.inflate(R.menu.notemenu, popup.menu)
-        popup.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId){
-                R.id.edit-> {
-                            enableEditText(tvIsi)
-                            enableEditText(tvJudul)
-                            btnSave.isVisible=true
-                }
-                R.id.delete-> {
+        btnDel.setOnClickListener(View.OnClickListener {
+            val args = Bundle()
+            args.putString("key", documentId)
+            val dialogFragment = StartGameDialogFragment()
+            dialogFragment.arguments = args
+            dialogFragment.show(supportFragmentManager, "DELETE_DIALOG")
 
-                }
-            }
-            true
-        }
-        popup.setOnDismissListener {
-            // Respond to popup being dismissed.
-        }
-        popup.setForceShowIcon(true)
-        popup.show()
+        })
     }
+
+//    @SuppressLint("NewApi")
+//    fun showPopup(v : View){
+//        val popup = PopupMenu(this, v)
+//        val inflater: MenuInflater = popup.menuInflater
+//        inflater.inflate(R.menu.notemenu, popup.menu)
+//        popup.setOnMenuItemClickListener { menuItem ->
+//            when(menuItem.itemId){
+//                R.id.edit-> {
+//                            enableEditText(tvIsi)
+//                            enableEditText(tvJudul)
+//                            btnSave.isVisible=true
+//                }
+//                R.id.delete-> {deleteJournal()
+//
+//                }
+//            }
+//            true
+//        }
+//        popup.setOnDismissListener {
+//            // Respond to popup being dismissed.
+//        }
+//        popup.setForceShowIcon(true)
+//        popup.show()
+//    }
     @SuppressLint("NewApi")
     fun enableEditText(tv:TextView){
         tv.isFocusable=true
@@ -122,4 +138,48 @@ class ViewJournalActivity : AppCompatActivity() {
     }
 
 
+
+}
+class StartGameDialogFragment : DialogFragment() {
+    private lateinit var firestore: FirebaseFirestore
+    interface OnDeleteListener {
+        fun onJournalDeleted()
+    }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnDeleteListener) {
+            // Listener is properly attached
+        } else {
+            throw ClassCastException("$context must implement OnDeleteListener")
+        }
+    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        firestore = FirebaseFirestore.getInstance()
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        val documentId = arguments?.getString("key")
+
+        return activity?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.setMessage("Are you sure you want to delete this journal?")
+                .setPositiveButton("Delete") { dialog, id ->
+                    documentId?.let { id ->
+                        firestore.collection("Journal").document(id).delete()
+                            .addOnSuccessListener {
+                                (activity as? OnDeleteListener)?.onJournalDeleted()
+                                dismiss()
+                            }
+                            .addOnFailureListener { exception ->
+
+                            }
+                    }
+                }
+                .setNegativeButton("Cancel") { dialog, id ->
+                    dialog.dismiss()
+                }
+            builder.create()
+        } ?: throw IllegalStateException("Activity cannot be null")
+    }
 }
