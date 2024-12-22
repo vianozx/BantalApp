@@ -54,7 +54,7 @@ class SignUp : AppCompatActivity() {
                             Toast.LENGTH_SHORT
                         ).show()
                         Log.d(TAG,"createUserWithEmail:success")
-                        startActivity(Intent(this, MainActivity::class.java))
+                        startActivity(Intent(this, InputData::class.java))
                     }else{
                         Log.d(TAG, "createUserWithEmail: failure", task.exception)
                         Toast.makeText(
