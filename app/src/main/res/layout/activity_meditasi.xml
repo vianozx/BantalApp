@@ -7,11 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".meditasi">
 
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_ios_24" />
+
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/tvJudulAktivitas"
         android:layout_width="339dp"
         android:layout_height="76dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="48dp"
         android:gravity="center"
         android:text="Langkah - Langkah Meditasi"
         android:textSize="28sp"
@@ -24,148 +34,23 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/tvJudulAktivitas">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="232dp"
-                    android:layout_height="wrap_content"
-                    android:text="1. Pilih Tempat yang Tenang Cari lokasi yang bebas dari gangguan, seperti ruangan yang sepi. Pastikan tempat tersebut nyaman, dengan suhu yang sesuai dan pencahayaan redup."
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="122dp"
-                    android:layout_height="124dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="16dp"
-                    tools:layout_marginTop="0dp"
-                    tools:srcCompat="@tools:sample/avatars" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="232dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="2. Atur Posisi Tubuh Duduk dengan posisi yang nyaman, bisa bersila di lantai atau duduk di kursi dengan kaki menyentuh lantai. Jaga punggung tetap tegak, tetapi tidak tegang."
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvIsiAktivitas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="154dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="20dp"
-                    tools:layout_marginTop="0dp"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="228dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="3. Tutup Mata atau Fokus pada Satu Titik Menutup mata membantu mengurangi gangguan visual. Jika tidak nyaman, Anda bisa fokus pada satu titik, seperti lilin yang menyala atau objek di depan Anda."
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="232dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="4. Perhatikan Pernapasan Mulailah dengan menarik napas dalam-dalam melalui hidung, tahan beberapa detik, lalu hembuskan perlahan melalui mulut. Fokuskan perhatian pada sensasi udara yang masuk dan keluar."
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView17"
-                    android:layout_width="228dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:text="5. Mulai dengan Waktu Singkat Untuk pemula, mulailah dengan 5–10 menit per sesi. Secara bertahap, tingkatkan durasi hingga 20–30 menit sehari."
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    tools:srcCompat="@tools:sample/avatars" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView18"
-                    android:layout_width="232dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:text="6. Akhiri dengan Perlahan Jangan langsung bangkit setelah meditasi. Luangkan beberapa detik untuk membuka mata perlahan dan kembali menyadari lingkungan sekitar."
-                    android:textSize="16sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView19"
-                    android:layout_width="232dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="1"
-                    android:text="7. Konsistensi adalah Kunci Jadikan meditasi sebagai rutinitas harian, misalnya di pagi hari atau sebelum tidur. \n"
-                    android:textSize="16sp" />
-            </LinearLayout>
-
+                android:text="TextView" />
         </LinearLayout>
     </ScrollView>
 

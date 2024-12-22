@@ -28,13 +28,14 @@
                 android:id="@+id/tvJudul"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="129dp"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="nama produk"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="129dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvDeskripsi"
