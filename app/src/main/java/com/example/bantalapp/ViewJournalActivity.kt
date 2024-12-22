@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,6 +30,7 @@ class ViewJournalActivity : AppCompatActivity(), StartGameDialogFragment.OnDelet
     private lateinit var journal: JournalControl
     private lateinit var backBtn: ImageButton
     private lateinit var btnDel: Button
+    private lateinit var btnEdit: Button
     override fun onJournalDeleted() {
         // Notify user of successful deletion
         Toast.makeText(this, "Journal deleted successfully", Toast.LENGTH_SHORT).show()
@@ -45,6 +47,7 @@ class ViewJournalActivity : AppCompatActivity(), StartGameDialogFragment.OnDelet
         btnSave = findViewById(R.id.btnSave)
         backBtn = findViewById(R.id.backButton)
         btnDel = findViewById(R.id.btnDel)
+        btnEdit = findViewById(R.id.btnEdit)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -102,6 +105,11 @@ class ViewJournalActivity : AppCompatActivity(), StartGameDialogFragment.OnDelet
             dialogFragment.arguments = args
             dialogFragment.show(supportFragmentManager, "DELETE_DIALOG")
 
+        })
+        btnEdit.setOnClickListener(View.OnClickListener {
+            enableEditText(tvIsi)
+            enableEditText(tvJudul)
+            btnSave.isVisible=true
         })
     }
 
@@ -163,7 +171,7 @@ class StartGameDialogFragment : DialogFragment() {
 
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("Are you sure you want to delete this journal?")
+            builder.setMessage("Apakah anda yakin ingin menghapus jurnal ini?")
                 .setPositiveButton("Delete") { dialog, id ->
                     documentId?.let { id ->
                         firestore.collection("Journal").document(id).delete()
