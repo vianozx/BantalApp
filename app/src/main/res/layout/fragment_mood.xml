@@ -44,6 +44,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:text="Apa perasaanmu hari ini !"
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <RadioGroup
@@ -59,35 +60,40 @@
                         android:layout_height="25dp"
                         android:layout_marginTop="40dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Sangat Senang" />
+                        android:text="Sangat Senang"
+                        android:textColor="@color/white" />
 
                     <RadioButton
                         android:id="@+id/senang"
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Senang" />
+                        android:text="Senang"
+                        android:textColor="@color/white" />
 
                     <RadioButton
                         android:id="@+id/biasa"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Biasa Saja" />
+                        android:text="Biasa Saja"
+                        android:textColor="@color/white" />
 
                     <RadioButton
                         android:id="@+id/murung"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Murung" />
+                        android:text="Murung"
+                        android:textColor="@color/white" />
 
                     <RadioButton
                         android:id="@+id/sedih"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:layout_marginBottom="10dp"
-                        android:text="Sedih" />
+                        android:text="Sedih"
+                        android:textColor="@color/white" />
                 </RadioGroup>
 
             </androidx.cardview.widget.CardView>
@@ -109,6 +115,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:text="Berapa jam kamu tidur hari ini "
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <Spinner
@@ -139,6 +146,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:text="Berapa jam kamu tidur hari ini "
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <Spinner
@@ -169,6 +177,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="20dp"
                     android:text="Apa kah ada sesuatu  yang mempengaruhi perasaanmu hari ini ? "
+                    android:textColor="@color/white"
                     android:textSize="20sp" />
 
                 <EditText
@@ -180,7 +189,8 @@
                     android:layout_marginEnd="20dp"
                     android:ems="10"
                     android:inputType="textMultiLine"
-                    android:lines="2" />
+                    android:lines="2"
+                    android:textColor="@color/white" />
 
             </androidx.cardview.widget.CardView>
 
