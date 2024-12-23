@@ -38,6 +38,8 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         bottomNavigationView = findViewById(R.id.bottomNavView)
         frameLayout = findViewById(R.id.frameLayout)
 
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_home -> {
@@ -73,6 +75,22 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
             navigationView.setCheckedItem(R.id.nav_home)
+        }
+        val fragmentName = intent.getStringExtra("FRAGMENT_NAME")
+        if (fragmentName != null) {
+            val fragment = when (fragmentName) {
+                "HomeFragment" -> HomeFragment()
+                "MoodFragment" -> MoodFragment()
+                "JurnalFragment" -> JurnalFragment()
+                "ActivityFragment" -> ActivityFragment()
+                else -> null
+            }
+            if (fragment != null) {
+                loadFragment(fragment)
+            }
+        } else {
+            // Default fragment if none is specified
+            loadFragment(HomeFragment())
         }
     }
 

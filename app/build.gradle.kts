@@ -38,6 +38,9 @@ android {
         jvmTarget = "1.8"
     }
     buildToolsVersion = "35.0.0"
+    buildFeatures{
+        viewBinding=true
+    }
 }
 
 dependencies {
@@ -58,6 +61,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.bantalapp
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -21,6 +22,7 @@ class JurnalFragment : Fragment(), JournalAdapter.OnJournalClickListener {
     private val journalItems = ArrayList<Journal>() // Use a list of JournalItem
     private lateinit var rvJournal: RecyclerView
     private lateinit var adapter: JournalAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

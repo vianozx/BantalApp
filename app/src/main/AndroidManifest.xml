@@ -18,6 +18,15 @@
         android:theme="@style/Theme.BantalApp"
         tools:targetApi="31">
         <activity
+            android:name=".ViewMoodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".moodDetail"
+            android:exported="false" />
+        <activity
+            android:name=".InputMood"
+            android:exported="false" />
+        <activity
             android:name=".InputData"
             android:exported="false" />
         <activity
