@@ -22,12 +22,14 @@ import com.example.bantalapp.R
 import com.example.bantalapp.SettingsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var frameLayout: FrameLayout
+    private val auth :FirebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,7 +101,8 @@ class HomePage : AppCompatActivity(), NavigationView.OnNavigationItemSelectedLis
             R.id.nav_home -> replaceFragment(HomeFragment())
             R.id.nav_profile -> startActivity(Intent(this, Profile::class.java))
             R.id.nav_settings -> startActivity(Intent(this, Settings::class.java))
-            R.id.nav_logout -> startActivity(Intent(this, MainActivity::class.java))
+            R.id.nav_logout ->
+                startActivity(Intent(this, MainActivity::class.java))
             else -> return false
         }
         drawerLayout.closeDrawer(GravityCompat.START)
